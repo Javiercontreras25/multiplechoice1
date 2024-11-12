@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test de Opción Múltiple</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+        h2 {
+            color: #2c3e50;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+        }
+        h3 {
+            color: #3498db;
+        }
+        label {
+            display: block;
+            padding: 5px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        label:hover {
+            background-color: #ecf0f1;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 15px;
+            font-size: 16px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        #result {
+            margin-top: 15px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .correct-answers {
+            margin-top: 10px;
+            color: #e74c3c;
+        }
+        #resultImage {
+            margin-top: 20px;
+            width: 150px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Test de Opción Múltiple</h2>
+
+<form id="testForm">
+    <!-- Pregunta 1 -->
+     <div>
+        <h3>1. ¿Que es la luz y cuales son sus propiedades?</h3>
+        <label><input type="checkbox" name="question1" value="A"> A) Una onde electromagnetica que se propaga por el vacio.</label>
+        <label><input type="checkbox" name="question1" value="B"> B) Una onda electromagnetica que se dispersa en todas las direcciones.</label>
+        <label><input type="checkbox" name="question1" value="C"> C) Nos permite ver y analizar el entorno intensidad,longitud y dirección.</label>
+        <label><input type="checkbox" name="question1" value="D"> D) su Rango de longitud de onda es entre 355-788 nm.</label>
+        <label><input type="checkbox" name="question1" value="E"> E) Ver en la oscuridad</label>
+      
+     </div>
+    <!-- Pregunta 2 -->
+    <div>
+        <h3>2. ¿Cuáles son los riesgos asociados a una  mala iluminacion laboral?</h3>
+        <label><input type="checkbox" name="question1" value="A"> A) Fatiga ocular</label>
+        <label><input type="checkbox" name="question1" value="B"> B) Dolor de cabeza</label>
+        <label><input type="checkbox" name="question1" value="C"> C) Dolor de pies</label>
+        <label><input type="checkbox" name="question1" value="D"> D) Dolor de pelo</label>
+        <label><input type="checkbox" name="question1" value="E"> E) Riesgo de accidente</label>
+        <label><input type="checkbox" name="question1" value="F"> F) Dolor de muñecas</label>
+    </div>
+
+    <!-- Pregunta 3 -->
+    <div>
+        <h3>3. ¿Cuáles son las enfemedades que se pueden adquirir a largo plazo por mal hábito ciclo cicardiano?</h3>
+        <label><input type="checkbox" name="question2" value="A"> A) gripe</label>
+        <label><input type="checkbox" name="question2" value="B"> B) Cancer</label>
+        <label><input type="checkbox" name="question2" value="C"> C) Enfermedades Neurodegerenativas</label>
+        <label><input type="checkbox" name="question2" value="D"> D) Obesidad</label>
+        <label><input type="checkbox" name="question2" value="E"> E) Tos</label>
+        <label><input type="checkbox" name="question2" value="F"> F) Altereaciones hormonales</label>
+    </div>
+
+        <!-- Pregunta 4 -->
+        <div>
+            <h3>4. ¿cual de estos tipos de fuentes son luces de tipo natural?</h3>
+            <label><input type="checkbox" name="question3" value="A"> A) sol</label>
+            <label><input type="checkbox" name="question3" value="B"> B) Estrellas</label>
+            <label><input type="checkbox" name="question3" value="C"> C) la luna</label>
+            <label><input type="checkbox" name="question3" value="D"> D) fuego de asado</label>
+            <label><input type="checkbox" name="question3" value="E"> E) cocina a leña</label>
+            <label><input type="checkbox" name="question3" value="F"> F) Luz Diodo LED</label>
+        </div>
+
+    <!-- Botón para enviar respuestas -->
+    <button type="button" onclick="submitTest()">Enviar Respuestas</button>
+</form>
+
+<p id="result"></p>
+<div id="correctAnswers" class="correct-answers"></div>
+<img id="resultImage" src="" alt="" style="display:none;">
+
+<script>
+    function submitTest() {
+        const correctAnswers = {
+            question1: ['B','C'], // 
+            question2: ['A','B','E'], // 
+            question3: ['B', 'C','D','F'], // 
+            question4: ['A', 'B', 'D','E'], //s
+        };
+
+        let score = 0;
+        let totalPossibleScore = 0;
+        let correctAnswersText = "<h3>Respuestas Correctas:</h3>";
+
+        for (let question in correctAnswers) {
+            let selectedOptions = Array.from(document.querySelectorAll(`input[name="${question}"]:checked`)).map(input => input.value);
+            let questionCorrectAnswers = correctAnswers[question];
+            let questionScore = 0;
+
+            questionCorrectAnswers.forEach(answer => {
+                totalPossibleScore++;
+                if (selectedOptions.includes(answer)) {
+                    questionScore++;
+                }
+            });
+
+            score += questionScore;
+            
+            correctAnswersText += `<p>Pregunta ${question.slice(-1)}: ${questionCorrectAnswers.join(", ")}</p>`;
+        }
+
+        let resultText = `Tu puntuación es ${score} de ${totalPossibleScore} !`;
+        document.getElementById("result").innerText = resultText;
+        document.getElementById("correctAnswers").innerHTML = correctAnswersText;
+
+        // Mostrar imagen según el porcentaje de puntaje obtenido
+        let percentage = (score / totalPossibleScore) * 100;
+        let resultImage = document.getElementById("resultImage");
+        console.log(percentage);
+        
+        let (percentage);
+        if (percentage === 100) {
+            resultImage.src = "\images (1).jpg"; // Reemplaza con la URL de una imagen para 100%
+        } else if (percentage >= 70) {
+            resultImage.src = "URL_DE_IMAGEN_BUENA"; // Reemplaza con la URL de una imagen para >= 70%
+        } else if (percentage >= 40) {
+            resultImage.src = "URL_DE_IMAGEN_PROMEDIO"; // Reemplaza con la URL de una imagen para >= 40%
+        } else {
+            resultImage.src = "URL_DE_IMAGEN_BAJA"; // Reemplaza con la URL de una imagen para < 40%
+        }
+
+        resultImage.style.display = "block";
+    }
+</script>
+
+</body>
+</html>
